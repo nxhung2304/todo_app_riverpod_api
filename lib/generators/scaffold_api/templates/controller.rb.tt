@@ -1,0 +1,47 @@
+module Api
+  module V1
+    class <%= plural_file_name.camelize %>Controller < ApplicationController
+      def index
+        @<%= plural_file_name %> = <%= class_name %>.all
+        render json: @<%= plural_file_name %>
+      end
+
+      def show
+        render json: find_<%= file_name %>
+      end
+
+      def create
+        <%= file_name %> = <%= class_name %>.new(<%= file_name %>_params)
+        if <%= file_name %>.save
+          render json: <%= file_name %>, status: :created
+        else
+          render json: <%= file_name %>.errors, status: :unprocessable_entity
+        end
+      end
+
+      def update
+        if find_<%= file_name %>.update(<%= file_name %>_params)
+          render json: find_<%= file_name %>
+        else
+          render json: find_<%= file_name %>.errors, status: :unprocessable_entity
+        end
+      end
+
+      def destroy
+        find_<%= file_name %>.destroy
+        head :no_content
+      end
+
+      private
+
+      def find_<%= file_name %>
+        @<%= file_name %> ||= <%= class_name %>.find(params[:id])
+      end
+
+      def <%= file_name %>_params
+        params.require(:<%= file_name %>).permit(<%= attributes.map { |attr| ":#{attr.name}" }.join(', ') %>)
+      end
+    end
+  end
+end
+
