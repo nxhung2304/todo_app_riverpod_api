@@ -2,11 +2,12 @@
 
 ## 🧭 Feature Roadmap
 
-### 1. Authentication (using devise / devise_token_auth)
-- [ ] `POST /auth` – Register
-- [ ] `POST /auth/sign_in` – Login
-- [ ] `DELETE /auth/sign_out` – Logout
-- [ ] `GET /auth/validate_token` – Session check
+### 1. Authentication (using devise / devise_token_auth / googleauth)
+- [x] `POST /auth` – Register
+- [x] `POST /auth/sign_in` – Login
+- [x] `DELETE /auth/sign_out` – Logout
+- [x] `GET /auth/validate_token` – Session check
+- [x] POST /auth/google_login - Verify Google Token
 
 ### 2. Task Management
 - [ ] `GET /tasks` – List all tasks
