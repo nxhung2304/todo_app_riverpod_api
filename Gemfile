@@ -39,6 +39,8 @@ gem "thruster", require: false
 
 gem "devise"
 gem "devise_token_auth"
+gem "rack-cors"
+gem "googleauth"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
