@@ -34,7 +34,7 @@ module Api
       params.permit(:id_token)
     end
 
-    def find_or_create_google_user
+    def find_or_create_google_user(user_data)
       User.find_or_create_by(email: user_data[:email]) do |u|
           u.full_name = user_data[:name]
           u.provider = GOOGLE_PROVIDER
