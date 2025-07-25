@@ -10,12 +10,12 @@
 - [x] POST /auth/google_login - Verify Google Token
 
 ### 2. Task Management
-- [ ] `GET /tasks` – List all tasks
-- [ ] `POST /tasks` – Create new task
-- [ ] `GET /tasks/:id` – Show task
-- [ ] `PUT /tasks/:id` – Update task
-- [ ] `DELETE /tasks/:id` – Delete task
-- [ ] `PATCH /tasks/:id/toggle` – Toggle task status (done/undone)
+- [ ] `GET /todos` – List all todos
+- [ ] `POST /todos` – Create new task
+- [ ] `GET /todos/:id` – Show task
+- [ ] `PUT /todos/:id` – Update task
+- [ ] `DELETE /todos/:id` – Delete task
+- [ ] `PATCH /todos/:id/toggle` – Toggle task status (done/undone)
 
 ### 3. Task Attributes (Extensions)
 - [ ] `due_date` – Deadline support
@@ -27,15 +27,15 @@
 - [ ] `reminders` – Push/email reminder (cronjob or background job)
 
 ### 4. Task Filtering / Querying
-- [ ] `/tasks?done=true` – Filter by done
-- [ ] `/tasks?due=today` – Filter by due date
-- [ ] `/tasks?list_id=1` – Filter by list
-- [ ] `/tasks/search?q=keyword` – Keyword search
+- [ ] `/todos?done=true` – Filter by done
+- [ ] `/todos?due=today` – Filter by due date
+- [ ] `/todos?list_id=1` – Filter by list
+- [ ] `/todos/search?q=keyword` – Keyword search
 
 ### 5. Todo List (Grouping)
 - [ ] CRUD endpoints for `/todo_lists`
 - [ ] Assign task to list
-- [ ] Group tasks by list for frontend
+- [ ] Group todos by list for frontend
 
 ### 6. User Profile
 - [ ] `GET /me` – Current user info
@@ -76,11 +76,11 @@ app/
 
 | Feature                   | Endpoint                             | Method |
 |---------------------------|---------------------------------------|--------|
-| Toggle task done status   | `/tasks/:id/toggle`                  | PATCH  |
-| Today's tasks             | `/tasks/today`                       | GET    |
-| Upcoming tasks            | `/tasks/upcoming`                    | GET    |
-| Search tasks              | `/tasks/search?q=...`                | GET    |
-| Upload attachments        | `/tasks/:id/attachments`             | POST   |
+| Toggle task done status   | `/todos/:id/toggle`                  | PATCH  |
+| Today's todos             | `/todos/today`                       | GET    |
+| Upcoming todos            | `/todos/upcoming`                    | GET    |
+| Search todos              | `/todos/search?q=...`                | GET    |
+| Upload attachments        | `/todos/:id/attachments`             | POST   |
 
 ---
 
