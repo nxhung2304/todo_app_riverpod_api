@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_17_045927) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_25_085112) do
+  create_table "todos", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", limit: 255, null: false
+    t.text "description", limit: 500
+    t.date "due_date"
+    t.integer "priority"
+    t.string "color", limit: 7
+    t.boolean "reminder"
+    t.boolean "done", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["due_date"], name: "index_todos_on_due_date"
+    t.index ["user_id", "done"], name: "index_todos_on_user_id_and_done"
+    t.index ["user_id"], name: "index_todos_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -34,4 +50,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_17_045927) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
+
+  add_foreign_key "todos", "users"
 end

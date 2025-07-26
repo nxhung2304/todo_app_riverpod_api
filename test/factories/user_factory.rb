@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -30,15 +28,18 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
-class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  include DeviseTokenAuth::Concerns::User
+FactoryBot.define do
+  factory :user do
+    email { Faker::Internet.email }
+    password { "password123" }
+    password_confirmation { "password123" }
+    full_name { Faker::Name.name }
+    confirmed_at { Time.current }
 
-  has_many :todos, dependent: :destroy
-
-  validates :email, presence: true, uniqueness: true
-  validates :full_name, length: { maximum: 255 }, allow_blank: true
+    trait :with_todos do
+      after(:create) do |user|
+        create_list(:todo, 3, user: user)
+      end
+    end
+  end
 end
