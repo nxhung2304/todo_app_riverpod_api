@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -30,15 +28,14 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
-class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  include DeviseTokenAuth::Concerns::User
+require "test_helper"
 
-  has_many :todos, dependent: :destroy
+class UserTest < ActiveSupport::TestCase
+  context :associations do
+    should have_many(:todos).dependent(:destroy)
+  end
 
-  validates :email, presence: true, uniqueness: true
-  validates :full_name, length: { maximum: 255 }, allow_blank: true
+  context :validations do
+    should validate_length_of(:full_name).is_at_most(255)
+  end
 end
