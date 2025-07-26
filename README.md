@@ -10,12 +10,12 @@
 - [x] POST /auth/google_login - Verify Google Token
 
 ### 2. Task Management
-- [ ] `GET /todos` – List all todos
-- [ ] `POST /todos` – Create new task
-- [ ] `GET /todos/:id` – Show task
-- [ ] `PUT /todos/:id` – Update task
-- [ ] `DELETE /todos/:id` – Delete task
-- [ ] `PATCH /todos/:id/toggle` – Toggle task status (done/undone)
+- [x] `GET /todos` – List all todos
+- [x] `POST /todos` – Create new todo 
+- [x] `GET /todos/:id` – Show todo 
+- [x] `PUT /todos/:id` – Update todo 
+- [x] `DELETE /todos/:id` – Delete todo 
+- [ ] `PATCH /todos/:id/toggle` – Toggle todo status (done/undone)
 
 ### 3. Task Attributes (Extensions)
 - [ ] `due_date` – Deadline support
@@ -34,7 +34,7 @@
 
 ### 5. Todo List (Grouping)
 - [ ] CRUD endpoints for `/todo_lists`
-- [ ] Assign task to list
+- [ ] Assign todo to list
 - [ ] Group todos by list for frontend
 
 ### 6. User Profile
@@ -61,7 +61,7 @@ app/
 │ │ └── auth/
 │ └── base_controller.rb
 ├── models/
-│ ├── task.rb
+│ ├── todo.rb 
 │ ├── todo_list.rb
 │ └── user.rb
 └── serializers/
@@ -76,7 +76,7 @@ app/
 
 | Feature                   | Endpoint                             | Method |
 |---------------------------|---------------------------------------|--------|
-| Toggle task done status   | `/todos/:id/toggle`                  | PATCH  |
+| Toggle todo done status   | `/todos/:id/toggle`                  | PATCH  |
 | Today's todos             | `/todos/today`                       | GET    |
 | Upcoming todos            | `/todos/upcoming`                    | GET    |
 | Search todos              | `/todos/search?q=...`                | GET    |
