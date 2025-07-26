@@ -16,7 +16,7 @@ Layout/AccessModifierIndentation:
 
 Metrics/MethodLength:
   Enabled: true
-  Max: 15
+  Max: 20
   Exclude:
     - 'db/migrate/*'
 
@@ -30,3 +30,73 @@ Layout/LineLength:
   Exclude:
     - 'config/**/*'
     - 'spec/**/*'
+# Sericuty
+Security/Open:
+  Enabled: true
+
+Security/Eval:
+  Enabled: true
+
+Security/YAMLLoad:
+  Enabled: true
+
+# Performance
+Performance/RedundantBlockCall:
+  Enabled: true
+
+Performance/StringReplacement:
+  Enabled: true
+
+Performance/RangeInclude:
+  Enabled: true
+
+Rails/FindBy:
+  Enabled: true
+
+Rails/FindEach:
+  Enabled: true
+
+Rails/PluckInWhere:
+  Enabled: true
+
+Metrics/AbcSize:
+  Enabled: true
+  Max: 20
+  Exclude:
+    - 'db/migrate/*'
+
+Metrics/CyclomaticComplexity:
+  Enabled: true
+  Max: 6
+
+Metrics/PerceivedComplexity:
+  Enabled: true
+  Max: 7
+
+# Naming conventions
+Naming/VariableName:
+  Enabled: true
+  EnforcedStyle: snake_case
+
+Naming/MethodName:
+  Enabled: true
+  EnforcedStyle: snake_case
+
+Naming/PredicatePrefix:
+  Enabled: true
+  NamePrefix: ['is_', 'has_', 'have_']
+  ForbiddenPrefixes: ['is_', 'have_']
+
+# Constants naming
+Naming/ConstantName:
+  Enabled: true
+
+# Spacing
+Layout/SpaceAroundOperators:
+  Enabled: true
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+
+Layout/SpaceAfterComma:
+  Enabled: true
