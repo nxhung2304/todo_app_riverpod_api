@@ -6,6 +6,8 @@ module Api
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     rescue_from ActionController::ParameterMissing, with: :parameter_missing
 
+    before_action :authenticate_api_user!
+
     def render_error_json(error_message, status = 404)
       render json: {
         message: error_message,
@@ -17,27 +19,27 @@ module Api
     def render_success_json(message = nil, data = nil, status = 200)
       response_body = {
         success: true,
-        timestamp: Time.current.iso8601
+        timestamp: Time.current.iso8601,
+        data: data
       }
 
       response_body[:message] = message if message.present?
-      response_body[:data] = data if data.present?
 
       render json: response_body, status: status
     end
 
-     private
+    private
 
-    def record_not_found(exception)
-      render_error_json("Record not found", 404, "RECORD_NOT_FOUND")
-    end
+      def record_not_found(exception)
+        render_error_json("Record not found", 404)
+      end
 
-    def record_invalid(exception)
-      render_error_json(exception.record.errors.full_messages.join(", "), 422, "VALIDATION_ERROR")
-    end
+      def record_invalid(exception)
+        render_error_json(exception.record.errors.full_messages.join(", "), 422)
+      end
 
-    def parameter_missing(exception)
-      render_error_json("Required parameter missing: #{exception.param}", 400, "MISSING_PARAMETER")
-    end
+      def parameter_missing(exception)
+        render_error_json("Required parameter missing: #{exception.param}", 400)
+      end
   end
 end

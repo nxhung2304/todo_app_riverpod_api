@@ -30,7 +30,7 @@ FactoryBot.define do
     title { Faker::Lorem.sentence(word_count: 3) }
     description { Faker::Lorem.paragraph }
     due_date { 1.week.from_now }
-    priority { 1 }
+    priority { %w[low medium high].sample }
     color { Faker::Color.hex_color }
 
     trait :completed do
@@ -42,8 +42,16 @@ FactoryBot.define do
       done { false }
     end
 
+    trait :low_priority do
+      priority { "low" }
+    end
+
+    trait :medium_priority do
+      priority { "medium" }
+    end
+
     trait :high_priority do
-      priority { 5 }
+      priority { "high" }
     end
   end
 end

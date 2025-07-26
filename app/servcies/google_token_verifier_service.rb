@@ -14,6 +14,17 @@ class GoogleTokenVerifierService
         aud: @google_client_id
       )
 
+      render_success(payload)
+    rescue Google::Auth::IDTokens::VerificationError => e
+      render_error("Invalid Google token: #{e.message}")
+    rescue => e
+      render_error("Verification failed: #{e.message}")
+    end
+  end
+
+  private
+
+    def render_success(payload)
       {
         success: true,
         user_data: {
@@ -24,16 +35,12 @@ class GoogleTokenVerifierService
           google_id: payload["sub"]
         }
       }
-    rescue Google::Auth::IDTokens::VerificationError => e
+    end
+
+    def render_error(e)
       {
         success: false,
         error: "Invalid Google token: #{e.message}"
       }
-    rescue => e
-      {
-        success: false,
-        error: "Verification failed: #{e.message}"
-      }
     end
-  end
 end

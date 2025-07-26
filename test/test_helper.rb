@@ -4,6 +4,8 @@ require "rails/test_help"
 require "factory_bot_rails"
 require "shoulda/matchers"
 require "shoulda/context"
+require "minitest/autorun"
+require "mocha/minitest"
 
 module ActiveSupport
   class TestCase
