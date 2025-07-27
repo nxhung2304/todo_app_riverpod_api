@@ -1,8 +1,113 @@
 # Omakase Ruby styling for Rails
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+
+Layout/AccessModifierIndentation:
+  Enabled: true
+  EnforcedStyle: indent
+
+Metrics/MethodLength:
+  Enabled: true
+  Max: 20
+  Exclude:
+    - 'db/migrate/*'
+    - 'test/**/*'
+
+Metrics/ClassLength:
+  Enabled: true
+  Max: 100
+  Exclude:
+    - 'test/**/*'
+
+Layout/LineLength:
+  Enabled: true
+  Max: 120
+  Exclude:
+    - 'config/**/*'
+    - 'spec/**/*'
+    - 'db/migrate/*'
+# Sericuty
+Security/Open:
+  Enabled: true
+
+Security/Eval:
+  Enabled: true
+
+Security/YAMLLoad:
+  Enabled: true
+
+# Performance
+Performance/RedundantBlockCall:
+  Enabled: true
+
+Performance/StringReplacement:
+  Enabled: true
+
+Performance/RangeInclude:
+  Enabled: true
+
+Rails/FindBy:
+  Enabled: true
+
+Rails/FindEach:
+  Enabled: true
+
+Rails/PluckInWhere:
+  Enabled: true
+
+Metrics/AbcSize:
+  Enabled: true
+  Max: 20
+  Exclude:
+    - 'db/migrate/*'
+    - 'test/**/*'
+
+Metrics/CyclomaticComplexity:
+  Enabled: true
+  Max: 6
+
+Metrics/PerceivedComplexity:
+  Enabled: true
+  Max: 7
+
+# Naming conventions
+Naming/VariableName:
+  Enabled: true
+  EnforcedStyle: snake_case
+
+Naming/MethodName:
+  Enabled: true
+  EnforcedStyle: snake_case
+
+Naming/PredicatePrefix:
+  Enabled: true
+  NamePrefix: ['is_', 'has_', 'have_']
+  ForbiddenPrefixes: ['is_', 'have_']
+
+# Constants naming
+Naming/ConstantName:
+  Enabled: true
+
+# Spacing
+Layout/SpaceAroundOperators:
+  Enabled: true
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+
+Layout/SpaceAfterComma:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
