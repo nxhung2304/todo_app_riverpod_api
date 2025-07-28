@@ -24,5 +24,6 @@ Rails.application.routes.draw do
         post :toggle
       end
     end
+    resources :categories
   end
 end

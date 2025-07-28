@@ -1,0 +1,12 @@
+class <%= class_name %>Serializer < ActiveModel::Serializer
+  attributes :id<%= attributes.any? ? ', ' : '' %><%= attributes.map { |attr| ":#{attr.name}" }.join(', ') %>, :created_at, :updated_at
+
+  # Uncomment and customize associations as needed
+  # belongs_to :user
+  # has_many :related_models
+  
+  # Custom attribute examples:
+  # def custom_attribute
+  #   object.some_method
+  # end
+end

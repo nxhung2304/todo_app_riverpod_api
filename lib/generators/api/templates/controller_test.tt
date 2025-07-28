@@ -1,0 +1,117 @@
+require "test_helper"
+
+class Api::<%= plural_file_name.camelize %>ControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
+  def setup
+    @user = create(:user)
+    @<%= plural_file_name %> = create_list(:<%= file_name %>, 3, user: @user)
+    @<%= file_name %> = @<%= plural_file_name %>.first
+    @auth_headers = @user.create_new_auth_token
+  end
+
+  # Index
+  test "should get index successfully" do
+    get api_<%= plural_file_name %>_url, headers: @auth_headers
+    assert_response :success
+  end
+
+  # Create
+  test "should create a <%= file_name %> with valid params" do
+    <%= file_name %>_attributes = attributes_for(:<%= file_name %>)
+    assert_difference("<%= class_name %>.count", 1) do
+      post api_<%= plural_file_name %>_url, params: { <%= file_name %>: <%= file_name %>_attributes }, headers: @auth_headers
+    end
+    assert_response :created
+  end
+
+  test "should not create a <%= file_name %> with invalid params" do
+<% if attributes.any? { |attr| attr.name == 'name' || attr.name == 'title' } -%>
+    <%= file_name %>_attributes = attributes_for(:<%= file_name %>, <%= attributes.find { |attr| attr.name == 'name' || attr.name == 'title' }.name %>: "")
+<% else -%>
+    <%= file_name %>_attributes = attributes_for(:<%= file_name %>, <%= attributes.first&.name || 'name' %>: "")
+<% end -%>
+    assert_difference("<%= class_name %>.count", 0) do
+      post api_<%= plural_file_name %>_url, params: { <%= file_name %>: <%= file_name %>_attributes }, headers: @auth_headers
+    end
+    assert_response :unprocessable_entity
+  end
+
+  # Update
+  test "should update a <%= file_name %> with valid params" do
+<% update_attr = attributes.find { |attr| attr.name == 'name' || attr.name == 'title' } || attributes.first -%>
+<% if update_attr -%>
+    <%= update_attr.name %>_updated = "<%= file_name %> updated"
+    params = {
+      <%= file_name %>: {
+        <%= update_attr.name %>: <%= update_attr.name %>_updated
+      }
+    }
+    put api_<%= file_name %>_url(@<%= file_name %>), params: params, headers: @auth_headers
+    assert_response :success
+    @<%= file_name %>.reload
+    assert_equal <%= update_attr.name %>_updated, @<%= file_name %>.<%= update_attr.name %>
+<% else -%>
+    params = {
+      <%= file_name %>: {
+        # Add your update attributes here
+      }
+    }
+    put api_<%= file_name %>_url(@<%= file_name %>), params: params, headers: @auth_headers
+    assert_response :success
+<% end -%>
+  end
+
+  test "should not update a <%= file_name %> with invalid params" do
+    <%= file_name %> = @<%= plural_file_name %>.first
+    params = {
+      <%= file_name %>: {
+<% if attributes.any? { |attr| attr.name == 'name' || attr.name == 'title' } -%>
+        <%= attributes.find { |attr| attr.name == 'name' || attr.name == 'title' }.name %>: ""
+<% else -%>
+        <%= attributes.first&.name || 'name' %>: ""
+<% end -%>
+      }
+    }
+<% update_attr = attributes.find { |attr| attr.name == 'name' || attr.name == 'title' } || attributes.first -%>
+<% if update_attr -%>
+    original_<%= update_attr.name %> = <%= file_name %>.<%= update_attr.name %>
+<% end -%>
+    put api_<%= file_name %>_url(<%= file_name %>), params: params, headers: @auth_headers
+    <%= file_name %>.reload
+    assert_response :unprocessable_entity
+<% if update_attr -%>
+    assert <%= file_name %>.<%= update_attr.name %>, original_<%= update_attr.name %>
+<% end -%>
+  end
+
+  test "update non-existent <%= file_name %> returns not found" do
+    params = {
+      <%= file_name %>: { 
+<% if attributes.first -%>
+        <%= attributes.first.name %>: "Test" 
+<% else -%>
+        name: "Test"
+<% end -%>
+      }
+    }
+    put api_<%= file_name %>_url(99999), params: params, headers: @auth_headers
+    assert_response :not_found
+  end
+
+  # Destroy
+  test "should destroy <%= file_name %>" do
+    <%= file_name %> = @<%= plural_file_name %>.first
+    assert_difference("<%= class_name %>.count", -1) do
+      delete api_<%= file_name %>_url(<%= file_name %>), headers: @auth_headers
+    end
+    assert_response :success
+  end
+
+  test "destroy non-existent <%= file_name %> returns not found" do
+    assert_difference("<%= class_name %>.count", 0) do
+      delete api_<%= file_name %>_url(99999), headers: @auth_headers
+    end
+    assert_response :not_found
+  end
+end
