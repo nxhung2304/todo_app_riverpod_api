@@ -2,14 +2,14 @@
 
 ## 🧭 Feature Roadmap
 
-### 1. Authentication (using devise / devise_token_auth / googleauth)
+### Authentication (using devise / devise_token_auth / googleauth)
 - [x] `POST /auth` – Register
 - [x] `POST /auth/sign_in` – Login
 - [x] `DELETE /auth/sign_out` – Logout
 - [x] `GET /auth/validate_token` – Session check
 - [x] POST /auth/google_login - Verify Google Token
 
-### 2. Task Management
+### Todo Management
 - [x] `GET /todos` – List all todos
 - [x] `POST /todos` – Create new todo 
 - [x] `GET /todos/:id` – Show todo 
@@ -17,7 +17,14 @@
 - [x] `DELETE /todos/:id` – Delete todo 
 - [x] `PATCH /todos/:id/toggle` – Toggle todo status (done/undone)
 
-### 3. Task Attributes (Extensions)
+### Category Management
+- [x] `GET /categories` – List all categories
+- [x] `POST /categories` – Create new category 
+- [x] `GET /categories/:id` – Show category 
+- [x] `PUT /categories/:id` – Update category 
+- [x] `DELETE /categories/:id` – Delete category 
+
+### Task Attributes (Extensions)
 - [ ] `due_date` – Deadline support
 - [ ] `description` – Long text support
 - [ ] `priority` – Task priority (integer)
@@ -26,23 +33,23 @@
 - [ ] `attachments` – Optional file uploads
 - [ ] `reminders` – Push/email reminder (cronjob or background job)
 
-### 4. Task Filtering / Querying
+### Task Filtering / Querying
 - [ ] `/todos?done=true` – Filter by done
 - [ ] `/todos?due=today` – Filter by due date
 - [ ] `/todos?list_id=1` – Filter by list
 - [ ] `/todos/search?q=keyword` – Keyword search
 
-### 5. Todo List (Grouping)
+### Todo List (Grouping)
 - [ ] CRUD endpoints for `/todo_lists`
 - [ ] Assign todo to list
 - [ ] Group todos by list for frontend
 
-### 6. User Profile
+### User Profile
 - [ ] `GET /me` – Current user info
 - [ ] `PUT /me` – Update profile
 - [ ] Upload avatar (ActiveStorage or similar)
 
-### 7. API Documentation
+###API Documentation
 - [ ] Install `rswag` for OpenAPI spec
 - [ ] Setup Swagger UI at `/api-docs`
 - [ ] Generate specs for endpoints

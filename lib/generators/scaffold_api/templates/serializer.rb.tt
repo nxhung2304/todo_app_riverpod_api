@@ -1,4 +1,0 @@
-class <%= class_name %>Serializer < ActiveModel::Serializer
-  attributes :id, <%= attributes.map { |attr| ":#{attr.name}" }.join(', ') %>
-end
-

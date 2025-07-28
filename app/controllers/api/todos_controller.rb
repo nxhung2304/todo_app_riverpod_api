@@ -25,7 +25,6 @@ module Api
       render_error_json(e.record.errors.full_messages.join(", "), 422)
     end
 
-
     def update
       @todo.update!(todo_params)
 

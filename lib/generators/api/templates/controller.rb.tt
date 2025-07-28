@@ -1,0 +1,64 @@
+module Api
+  module V1
+    class <%= plural_file_name.camelize %>Controller < ApplicationApiController
+      before_action :set_<%= file_name %>, only: %i[update destroy]
+
+      def index
+        @<%= plural_file_name %> = @current_api_user.<%= plural_file_name %>
+        serialized_<%= plural_file_name %> = @<%= plural_file_name %>.map { |<%= file_name %>| <%= class_name %>Serializer.new(<%= file_name %>).as_json }
+        render_success_json(
+          "<%= plural_file_name.humanize %> retrieved successfully",
+          serialized_<%= plural_file_name %>
+        )
+      end
+
+      def create
+        <%= file_name %> = @current_api_user.<%= plural_file_name %>.build(<%= file_name %>_params)
+        <%= file_name %>.save!
+        
+        serialized_<%= file_name %> = <%= class_name %>Serializer.new(@<%= file_name %>).as_json
+        render_success_json(
+          "<%= file_name.humanize %> created successfully",
+          serialized_<%= file_name %>,
+          201
+        )
+      rescue ActiveRecord::RecordInvalid => e
+        render_error_json(e.record.errors.full_messages.join(", "), 422)
+      end
+
+      def update
+        @<%= file_name %>.update!(<%= file_name %>_params)
+        
+        serialized_<%= file_name %> = <%= class_name %>Serializer.new(@<%= file_name %>).as_json
+        render_success_json(
+          "<%= file_name.humanize %> updated successfully",
+          serialized_<%= file_name %>
+        )
+      rescue ActiveRecord::RecordInvalid => e
+        render_error_json(e.record.errors.full_messages.join(", "), 422)
+      end
+
+      def destroy
+        @<%= file_name %>.destroy!
+        
+        render_success_json(
+          "<%= file_name.humanize %> deleted successfully"
+        )
+      rescue ActiveRecord::RecordNotDestroyed => e
+        render_error_json(e.record.errors.full_messages.join(", "), 422)
+      end
+
+      private
+
+      def set_<%= file_name %>
+        @<%= file_name %> = @current_api_user.<%= plural_file_name %>.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        render_error_json("<%= file_name.humanize %> not found", 404)
+      end
+
+      def <%= file_name %>_params
+        params.require(:<%= file_name %>).permit(<%= attributes.map { |attr| ":#{attr.name}" }.join(', ') %>)
+      end
+    end
+  end
+end

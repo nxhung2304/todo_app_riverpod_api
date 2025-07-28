@@ -12,3 +12,6 @@ puts "Created a User: #{user.email}"
 
 todo = user.todos.create! title: "Todo 1"
 puts "Created a Todo: #{todo.title}"
+
+category = user.categories.create! name: "Home"
+puts "Created a Category: #{todo.title}"

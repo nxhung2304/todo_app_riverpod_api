@@ -69,6 +69,7 @@ Metrics/AbcSize:
   Exclude:
     - 'db/migrate/*'
     - 'test/**/*'
+    - 'lib/generators/**/*'
 
 Metrics/CyclomaticComplexity:
   Enabled: true
