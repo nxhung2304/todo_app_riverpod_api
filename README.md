@@ -15,7 +15,7 @@
 - [x] `GET /todos/:id` – Show todo 
 - [x] `PUT /todos/:id` – Update todo 
 - [x] `DELETE /todos/:id` – Delete todo 
-- [ ] `PATCH /todos/:id/toggle` – Toggle todo status (done/undone)
+- [x] `PATCH /todos/:id/toggle` – Toggle todo status (done/undone)
 
 ### 3. Task Attributes (Extensions)
 - [ ] `due_date` – Deadline support

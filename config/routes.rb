@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
     resources :todos do
       member do
-        patch :toggle
+        post :toggle
       end
     end
   end

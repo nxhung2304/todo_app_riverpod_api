@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :todos, dependent: :destroy
+  has_many :categories, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :full_name, length: { maximum: 255 }, allow_blank: true
