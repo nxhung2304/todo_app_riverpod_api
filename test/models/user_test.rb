@@ -33,6 +33,7 @@ require "test_helper"
 class UserTest < ActiveSupport::TestCase
   context :associations do
     should have_many(:todos).dependent(:destroy)
+    should have_many(:categories).dependent(:destroy)
   end
 
   context :validations do

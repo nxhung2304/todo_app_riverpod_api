@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_25_085112) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_28_043112) do
+  create_table "categories", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name", null: false
+    t.string "color", default: "#6366f1"
+    t.string "icon"
+    t.text "description"
+    t.boolean "archived", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
   create_table "todos", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", limit: 255, null: false
@@ -51,5 +63,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_25_085112) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "categories", "users"
   add_foreign_key "todos", "users"
 end

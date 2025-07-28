@@ -32,5 +32,5 @@ class Todo < ApplicationRecord
   validates :title, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 500 }, allow_blank: true
   validates :due_date, comparison: { greater_than: Date.current }, allow_nil: true
-  validates :color, format: { with: /\A#[0-9A-Fa-f]{6}\z/ }, allow_blank: true, length: { maximum: 7 }
+  validates :color, hex_color: true, allow_blank: true, length: { maximum: 7 }
 end

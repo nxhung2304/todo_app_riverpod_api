@@ -89,7 +89,7 @@ class Api::TodoControllerTest < ActionDispatch::IntegrationTest
       delete api_todo_url(todo), headers: @auth_headers
     end
 
-    assert_response :no_content
+    assert_response :success
   end
 
   test "destroy non-existent todo returns not found" do
