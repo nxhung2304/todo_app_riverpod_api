@@ -33,7 +33,7 @@ module Api
         "Todo updated successfully",
         serialized_todo
       )
-    rescue ActiveRecord::RecordInvalid => e
+    rescue StandardError => e
       render_error_json(e.record.errors.full_messages.join(", "), 422)
     end
 

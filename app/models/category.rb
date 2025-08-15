@@ -23,8 +23,10 @@
 class Category < ApplicationRecord
   belongs_to :user
 
+  have_many :todos, dependent: :destroy
+
   validates :name, presence: true, length: { maximum: 255 }
-  validates :color, length: { maximum: 7 }, hex_color: true, allow_blank: true
+  validates :color, length: { maximum: 10 }, hex_color: true, allow_blank: true
   validates :icon, length: { maximum: 255 }
   validates :archived, inclusion: { in: [ true, false ] }
 end

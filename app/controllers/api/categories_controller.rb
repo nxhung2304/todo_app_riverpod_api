@@ -1,6 +1,6 @@
 module Api
   class CategoriesController < ApplicationApiController
-    before_action :set_category, only: %i[update destroy]
+    before_action :set_category, only: %i[show update destroy]
 
     def index
       @categories = @current_api_user.categories
@@ -8,6 +8,14 @@ module Api
       render_success_json(
         "Categories retrieved successfully",
         serialized_categories
+      )
+    end
+
+    def show
+      serialized_categories = CategorySerializer.new(@category).as_json
+      render_success_json(
+        "Categories retrieved successfully",
+        @category
       )
     end
 

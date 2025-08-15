@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_28_043112) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_15_074508) do
   create_table "categories", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name", null: false
@@ -34,6 +34,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_28_043112) do
     t.boolean "done", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_id", null: false
+    t.index ["category_id"], name: "index_todos_on_category_id"
     t.index ["due_date"], name: "index_todos_on_due_date"
     t.index ["user_id", "done"], name: "index_todos_on_user_id_and_done"
     t.index ["user_id"], name: "index_todos_on_user_id"
@@ -64,5 +66,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_28_043112) do
   end
 
   add_foreign_key "categories", "users"
+  add_foreign_key "todos", "categories"
   add_foreign_key "todos", "users"
 end
