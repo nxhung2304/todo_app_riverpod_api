@@ -12,10 +12,10 @@ module Api
     end
 
     def show
-      serialized_categories = CategorySerializer.new(@category).as_json
+      serialized_category = CategorySerializer.new(@category).as_json
       render_success_json(
-        "Categories retrieved successfully",
-        @category
+        "Category retrieved successfully",
+        serialized_category
       )
     end
 
@@ -48,8 +48,11 @@ module Api
     def destroy
       @category.destroy!
 
+      serialized_category = CategorySerializer.new(@category).as_json
+
       render_success_json(
-        "Category deleted successfully"
+        "Category deleted successfully",
+        serialized_category
       )
     rescue ActiveRecord::RecordNotDestroyed => e
       render_error_json(e.record.errors.full_messages.join(", "), 422)

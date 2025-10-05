@@ -32,6 +32,7 @@ require "test_helper"
 class TodoTest < ActiveSupport::TestCase
   context :associations do
     should belong_to(:user)
+    should belong_to(:category)
   end
 
   context :validations do

@@ -1,6 +1,6 @@
 module Api
   class TodosController < ApplicationApiController
-    before_action :set_todo, only: %i[update destroy toggle]
+    before_action :set_todo, only: %i[show update destroy toggle]
 
     def index
       @todos = @current_api_user.todos
@@ -12,12 +12,21 @@ module Api
       )
     end
 
+    def show
+      serialized_todo = TodoSerializer.new(@todo).as_json
+
+      render_success_json(
+        "Todo retrieved successfully",
+        serialized_todo
+      )
+    end
+
     def create
       todo = @current_api_user.todos.create!(todo_params)
 
       serialized_todo = TodoSerializer.new(todo).as_json
       render_success_json(
-        "Todo updated successfully",
+        "Todo created successfully",
         serialized_todo,
         201
       )
@@ -33,7 +42,7 @@ module Api
         "Todo updated successfully",
         serialized_todo
       )
-    rescue StandardError => e
+    rescue ActiveRecord::RecordInvalid => e
       render_error_json(e.record.errors.full_messages.join(", "), 422)
     end
 
@@ -75,7 +84,8 @@ module Api
           :due_date,
           :priority,
           :reminder,
-          :user_id
+          :user_id,
+          :category_id
         )
       end
   end

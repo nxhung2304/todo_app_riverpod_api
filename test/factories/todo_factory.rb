@@ -30,6 +30,7 @@
 FactoryBot.define do
   factory :todo do
     association :user
+    association :category
     title { Faker::Lorem.sentence(word_count: 3) }
     description { Faker::Lorem.paragraph }
     due_date { 1.week.from_now }
