@@ -5,7 +5,8 @@ class Api::TodoControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = create(:user)
-    @todos = create_list(:todo, 3, user: @user)
+    @category = create(:category, user: @user)
+    @todos = create_list(:todo, 3, user: @user, category: @category)
     @todo = @todos.first
 
     @auth_headers = @user.create_new_auth_token
@@ -20,7 +21,7 @@ class Api::TodoControllerTest < ActionDispatch::IntegrationTest
 
   # Create
   test "should create a todo with valid params" do
-    todo_attributes = attributes_for(:todo)
+    todo_attributes = attributes_for(:todo, category_id: @category.id)
 
     assert_difference("Todo.count", 1) do
       post api_todos_url, params: { todo: todo_attributes }, headers: @auth_headers
@@ -30,7 +31,7 @@ class Api::TodoControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not create a todo with invalid params" do
-    todo_attributes = attributes_for(:todo, title: "")
+    todo_attributes = attributes_for(:todo, title: "", category_id: @category.id)
 
     assert_difference("Todo.count", 0) do
       post api_todos_url, params: { todo: todo_attributes }, headers: @auth_headers

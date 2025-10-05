@@ -12,21 +12,25 @@
 #  title       :string(255)      not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  category_id :integer          not null
 #  user_id     :integer          not null
 #
 # Indexes
 #
+#  index_todos_on_category_id       (category_id)
 #  index_todos_on_due_date          (due_date)
 #  index_todos_on_user_id           (user_id)
 #  index_todos_on_user_id_and_done  (user_id,done)
 #
 # Foreign Keys
 #
-#  user_id  (user_id => users.id)
+#  category_id  (category_id => categories.id)
+#  user_id      (user_id => users.id)
 #
 FactoryBot.define do
   factory :todo do
     association :user
+    association :category
     title { Faker::Lorem.sentence(word_count: 3) }
     description { Faker::Lorem.paragraph }
     due_date { 1.week.from_now }
